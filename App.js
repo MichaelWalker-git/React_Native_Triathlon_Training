@@ -18,7 +18,8 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer)}>
 				<SafeAreaView style={styles.safeArea}>
           <View style={styles.main}>
-            <History/>
+						<View style={{height: 20}}/>
+						<History/>
             {/*<AddEntry/>*/}
           </View>
         </SafeAreaView>

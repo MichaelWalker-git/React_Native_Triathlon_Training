@@ -8,10 +8,12 @@ import { createStore } from 'redux';
 import { Provider} from 'react-redux';
 import reducer from './reducers'
 import History from "./components/History";
-import { TabNavigator } from 'react-navigation';
+import {StackNavigator, TabNavigator} from 'react-navigation';
 import { purple, white } from "./utils/colors";
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import {Constants} from 'expo';
+import EntryDetail from "./components/EntryDetail";
+import Live from "./components/Live";
 
 function UdacisStatusBar({backgroundColor, ...props}){
 	return (
@@ -40,6 +42,15 @@ const Tabs = TabNavigator({
 																						 color={tintColor}
 																						 size={30}/>
 		}
+	},
+	Live: {
+		screen: Live,
+		navigationOptions: {
+			tabBarLabel: 'Live',
+			tabBarIcon: ({tintColor}) => <Ionicons name='ios-speedometer'
+																								color={tintColor}
+																								size={30}/>
+		}
 	}
 }, {
 	navigationOptions: {
@@ -63,6 +74,21 @@ const Tabs = TabNavigator({
 	}
 });
 
+const MainNavigator = StackNavigator({
+	Home: {
+		screen: Tabs,
+	},
+	EntryDetail: {
+		screen: EntryDetail,
+		navigationOptions: {
+			headerTintColor: white,
+			headerStyle: {
+				backgroundColor: purple
+			}
+		}
+	}
+});
+
 export default class App extends React.Component {
   state = {
     value: 0,
@@ -73,7 +99,7 @@ export default class App extends React.Component {
 				<SafeAreaView style={styles.safeArea}>
           <View style={styles.main}>
 						<UdacisStatusBar backgroundColor={purple} barStyle='light-content'/>
-						<Tabs/>
+						<MainNavigator/>
           </View>
         </SafeAreaView>
       </Provider>

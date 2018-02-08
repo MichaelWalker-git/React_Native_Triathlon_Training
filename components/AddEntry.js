@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Platform} from 'react-native';
-import {getDailyReminderValue, getMetricMetaInfo, timeToString} from "../utils/helpers";
+import {
+	clearLocationNotifications, getDailyReminderValue, getMetricMetaInfo, setLocalNotification,
+	timeToString
+} from "../utils/helpers";
 import UdaciSlider from "./UdaciSlider";
 import UdaciSteppers from "./UdaciSteppers";
 import DateHeader from "./DateHeader";
@@ -10,6 +13,7 @@ import {removeEntry, submitEntry} from "../utils/api";
 import {connect} from 'react-redux';
 import {addEntry} from "../actions";
 import {lightPurp, purple, white} from "../utils/colors";
+import * as NavigationActions from "react-navigation";
 
 function SubmitBtn ({onPress}) {
 	return (
@@ -78,11 +82,12 @@ class AddEntry extends Component {
 			eat: 0
 		}));
 		// Navigate home
-
+		this.toHome();
 		// Save to DB
 		submitEntry({entry, key});
 
-		// Clear local notification
+		clearLocationNotifications()
+			.then(setLocalNotification)
 	};
 
 	reset = () => {
@@ -93,9 +98,14 @@ class AddEntry extends Component {
 		}));
 	//	Update Redux
 
+		this.toHome();
 	//	Route to Home
 		removeEntry(key);
 	//	Update DB
+	};
+
+	toHome = () => {
+		this.props.navigation.dispatch(NavigationActions.back({key: 'AddEntry'}))
 	};
 
 	render(){

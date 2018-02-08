@@ -58,7 +58,7 @@ const Tabs = TabNavigator({
 		headers: null
 	}
 	},
-	{gi
+	{
 	tabBarOptions:{
 		activeTintColor: Platform.OS === 'ios' ? purple : white,
 		style: {

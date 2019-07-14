@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "jest-expo": "25.0.0",
+    "jest-expo": "^33.0.2",
     "react-native-scripts": "1.10.0",
     "react-test-renderer": "16.2.0"
   },
@@ -21,7 +21,7 @@
   "dependencies": {
     "expo": "^25.0.0",
     "react": "16.2.0",
-    "react-native": "0.52.0",
+    "react-native": "^0.60.3",
     "react-navigation": "^1.0.0-beta.30",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
